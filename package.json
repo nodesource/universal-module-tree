@@ -1,0 +1,14 @@
+{
+  "name": "@ns-private/universal-module-tree",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "repository": "nodesource/universal-module-tree",
+  "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
+  "scripts": {
+    "test": "standard && check-deps && node example.js"
+  },
+  "devDependencies": {
+    "@ns-private/check-deps": "^2.0.0",
+    "standard": "^12.0.1"
+  }
+}
