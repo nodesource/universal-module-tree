@@ -42,7 +42,10 @@ const getTreeFromPackageLock = async dir => {
         })
         pkgs.set(id, treeChild)
         treeNode.children.push(treeChild)
-        walk(treeChild, dependencyNode, packageLockNode)
+        const newPackageLockParent = (packageLockNode.dependencies || {})[name]
+          ? packageLockNode
+          : packageLockParent
+        walk(treeChild, dependencyNode, newPackageLockParent)
       }
     }
   }
