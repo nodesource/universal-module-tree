@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@ns-private/check-deps": "^2.0.0",
+    "json-stringify-safe": "^5.0.1",
     "standard": "^12.0.1"
   }
 }

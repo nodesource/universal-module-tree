@@ -8,11 +8,6 @@ class Node {
     this.data = data
     this.children = []
   }
-  addChild (data) {
-    const node = new Node(data)
-    this.children.push(node)
-    return node
-  }
 }
 
 const getTree = async dir =>
@@ -25,28 +20,41 @@ const getTree = async dir =>
 const getTreeFromPackageLock = async dir => {
   const tree = new Node()
   const packageLock = await readJSON(`${dir}/package-lock.json`)
+  const pkgs = new Map()
 
   const walk = (treeNode, packageLockNode, packageLockParent) => {
     for (const name of Object.keys(packageLockNode.requires || {})) {
-      const dependencyNode = (packageLockNode.dependencies || {})[name] ||
+      const dependencyNode =
+        (packageLockNode.dependencies || {})[name] ||
         (packageLockParent.dependencies || {})[name] ||
         packageLock.dependencies[name]
       dependencyNode.name = name
-      const treeChild = treeNode.addChild({
-        name,
-        version: dependencyNode.version
-      })
-      walk(treeChild, dependencyNode, packageLockNode)
+
+      const id = `${name}@${dependencyNode.version}`
+      let treeChild
+      if (pkgs.has(id)) {
+        treeChild = pkgs.get(id)
+        treeNode.children.push(treeChild)
+      } else {
+        treeChild = new Node({
+          name,
+          version: dependencyNode.version
+        })
+        pkgs.set(id, treeChild)
+        treeNode.children.push(treeChild)
+        walk(treeChild, dependencyNode, packageLockNode)
+      }
     }
   }
 
   for (const name of await getTopLevelDependencies(dir)) {
     const packageLockNode = packageLock.dependencies[name]
     packageLockNode.name = name
-    const treeNode = tree.addChild({
+    const treeNode = new Node({
       name,
       version: packageLockNode.version
     })
+    tree.children.push(treeNode)
     walk(treeNode, packageLockNode, packageLock)
   }
 
