@@ -3,6 +3,7 @@
 const fs = require('fs')
 const { promisify } = require('util')
 const lockfile = require('@yarnpkg/lockfile')
+const readPackageTree = require('read-package-tree')
 
 class Node {
   constructor (data) {
@@ -111,17 +112,61 @@ const getTreeFromYarnLock = async dir => {
 }
 
 const getTreeFromNodeModules = async dir => {
-  throw new Error('TODO')
+  const tree = new Node()
+  const data = await promisify(readPackageTree)(dir)
+  const pkgs = new Map()
+
+  const walk = (treeNode, dataNode, dataNodeParent) => {
+    const dependencies = dataNode === data
+      ? getAllDependencies(dataNode.package)
+      : Object.entries(dataNode.package.dependencies)
+    for (const [name] of dependencies) {
+      const dependencyNode = dataNode.children.find(c => c.name === name) ||
+        dataNodeParent.children.find(c => c.name === name) ||
+        data.children.find(c => c.name === name)
+
+      const id = `${name}@${dependencyNode.package.version}`
+      let treeChild
+      if (pkgs.has(id)) {
+        treeChild = pkgs.get(id)
+        treeNode.children.push(treeChild)
+      } else {
+        treeChild = new Node({
+          name,
+          version: dependencyNode.package.version
+        })
+        pkgs.set(id, treeChild)
+        treeNode.children.push(treeChild)
+        const newDataNodeParent = dataNode.children.find(c => c.name === name)
+          ? dataNode
+          : dataNodeParent
+        walk(treeChild, dataNode, newDataNodeParent)
+      }
+    }
+  }
+
+  for (const [name] of await getTopLevelDependencies(dir)) {
+    const dataNode = data.children.find(c => c.name === name)
+    const treeNode = new Node({
+      name,
+      version: dataNode.package.version
+    })
+    tree.children.push(treeNode)
+    walk(treeNode, dataNode, data)
+  }
+
+  return tree
 }
 
-const getTopLevelDependencies = async dir => {
-  const pkg = await readJSON(`${dir}/package.json`)
-  return new Set([
+const getAllDependencies = pkg =>
+  new Set([
     ...Object.entries(pkg.dependencies || {}),
     ...Object.entries(pkg.devDependencies || {}),
     ...Object.entries(pkg.optionalDependencies || {})
   ])
-}
+
+const getTopLevelDependencies = async dir =>
+  getAllDependencies(await readJSON(`${dir}/package.json`))
 
 const readJSON = async file => {
   const buf = await promisify(fs.readFile)(file)
