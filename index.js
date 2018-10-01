@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const { promisify } = require('util')
+const lockfile = require('@yarnpkg/lockfile')
 
 class Node {
   constructor (data) {
@@ -50,7 +51,7 @@ const getTreeFromPackageLock = async dir => {
     }
   }
 
-  for (const name of await getTopLevelDependencies(dir)) {
+  for (const [name] of await getTopLevelDependencies(dir)) {
     const packageLockNode = packageLock.dependencies[name]
     packageLockNode.name = name
     const treeNode = new Node({
@@ -65,7 +66,48 @@ const getTreeFromPackageLock = async dir => {
 }
 
 const getTreeFromYarnLock = async dir => {
-  throw new Error('TODO')
+  const buf = await promisify(fs.readFile)(`${dir}/yarn.lock`)
+  const yarnLock = lockfile.parse(buf.toString())
+  const tree = new Node()
+  const pkgs = new Map()
+
+  const walk = treeNode => {
+    const id = `${treeNode.data.name}@${treeNode.data.semver}`
+    const yarnLockNode = yarnLock.object[id]
+
+    for (const [name, semver] of Object.entries(yarnLockNode.dependencies || {})) {
+      const id = `${name}@${semver}`
+      const dependencyNode = yarnLock.object[id]
+      dependencyNode.name = name
+
+      let treeChild
+      if (pkgs.has(id)) {
+        treeChild = pkgs.get(id)
+        treeNode.children.push(treeChild)
+      } else {
+        treeChild = new Node({
+          name,
+          version: dependencyNode.version,
+          semver
+        })
+        pkgs.set(id, treeChild)
+        treeNode.children.push(treeChild)
+        walk(treeChild)
+      }
+    }
+  }
+
+  for (const [name, semver] of await getTopLevelDependencies(dir)) {
+    const treeNode = new Node({
+      name,
+      version: yarnLock.object[`${name}@${semver}`].version,
+      semver
+    })
+    tree.children.push(treeNode)
+    walk(treeNode)
+  }
+
+  return tree
 }
 
 const getTreeFromNodeModules = async dir => {
@@ -75,9 +117,9 @@ const getTreeFromNodeModules = async dir => {
 const getTopLevelDependencies = async dir => {
   const pkg = await readJSON(`${dir}/package.json`)
   return new Set([
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.devDependencies || {}),
-    ...Object.keys(pkg.optionalDependencies || {})
+    ...Object.entries(pkg.dependencies || {}),
+    ...Object.entries(pkg.devDependencies || {}),
+    ...Object.entries(pkg.optionalDependencies || {})
   ])
 }
 
