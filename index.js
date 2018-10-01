@@ -11,9 +11,9 @@ class Node {
 }
 
 const getTree = async dir =>
-  exists(`${dir}/package-lock.json`)
+  await exists(`${dir}/package-lock.json`)
     ? getTreeFromPackageLock(dir)
-    : exists(`${dir}/yarn.lock`)
+    : await exists(`${dir}/yarn.lock`)
       ? getTreeFromYarnLock(dir)
       : getTreeFromNodeModules(dir)
 
