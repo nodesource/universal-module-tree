@@ -24,13 +24,15 @@ const getTreeFromPackageLock = async dir => {
   const packageLock = await readJSON(`${dir}/package-lock.json`)
   const pkgs = new Map()
 
-  const walk = (treeNode, packageLockNode, packageLockParent) => {
+  const walk = (treeNode, packageLockNode) => {
     for (const name of Object.keys(packageLockNode.requires || {})) {
-      const dependencyNode =
-        (packageLockNode.dependencies || {})[name] ||
-        (packageLockParent.dependencies || {})[name] ||
-        packageLock.dependencies[name]
+      let dependenciesNode = packageLockNode
+      while (!(dependenciesNode.dependencies || {})[name]) {
+        dependenciesNode = dependenciesNode.parent
+      }
+      const dependencyNode = dependenciesNode.dependencies[name]
       dependencyNode.name = name
+      if (!dependencyNode.parent) dependencyNode.parent = packageLockNode
 
       const id = `${name}@${dependencyNode.version}`
       let treeChild
@@ -44,10 +46,7 @@ const getTreeFromPackageLock = async dir => {
         })
         pkgs.set(id, treeChild)
         treeNode.children.push(treeChild)
-        const newPackageLockParent = (packageLockNode.dependencies || {})[name]
-          ? packageLockNode
-          : packageLockParent
-        walk(treeChild, dependencyNode, newPackageLockParent)
+        walk(treeChild, dependencyNode)
       }
     }
   }
@@ -55,6 +54,7 @@ const getTreeFromPackageLock = async dir => {
   for (const [name] of await getTopLevelDependencies(dir)) {
     const packageLockNode = packageLock.dependencies[name]
     packageLockNode.name = name
+    packageLockNode.parent = packageLock
     const treeNode = new Node({
       name,
       version: packageLockNode.version
@@ -75,8 +75,9 @@ const getTreeFromYarnLock = async dir => {
   const walk = treeNode => {
     const id = `${treeNode.data.name}@${treeNode.data.semver}`
     const yarnLockNode = yarnLock.object[id]
+    const dependencies = yarnLockNode.dependencies || {}
 
-    for (const [name, semver] of Object.entries(yarnLockNode.dependencies || {})) {
+    for (const [name, semver] of Object.entries(dependencies)) {
       const id = `${name}@${semver}`
       const dependencyNode = yarnLock.object[id]
       dependencyNode.name = name
@@ -116,14 +117,16 @@ const getTreeFromNodeModules = async dir => {
   const data = await promisify(readPackageTree)(dir)
   const pkgs = new Map()
 
-  const walk = (treeNode, dataNode, dataNodeParent) => {
+  const walk = (treeNode, dataNode) => {
     const dependencies = dataNode === data
       ? getAllDependencies(dataNode.package)
-      : Object.entries(dataNode.package.dependencies)
+      : Object.entries(dataNode.package.dependencies || {})
     for (const [name] of dependencies) {
-      const dependencyNode = dataNode.children.find(c => c.name === name) ||
-        dataNodeParent.children.find(c => c.name === name) ||
-        data.children.find(c => c.name === name)
+      let dependenciesNode = dataNode
+      while (!dependenciesNode.children.find(c => c.package.name === name)) {
+        dependenciesNode = dependenciesNode.parent
+      }
+      const dependencyNode = dependenciesNode.children.find(c => c.package.name === name)
 
       const id = `${name}@${dependencyNode.package.version}`
       let treeChild
@@ -137,10 +140,7 @@ const getTreeFromNodeModules = async dir => {
         })
         pkgs.set(id, treeChild)
         treeNode.children.push(treeChild)
-        const newDataNodeParent = dataNode.children.find(c => c.name === name)
-          ? dataNode
-          : dataNodeParent
-        walk(treeChild, dataNode, newDataNodeParent)
+        walk(treeChild, dependencyNode)
       }
     }
   }
