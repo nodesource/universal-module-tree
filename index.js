@@ -4,6 +4,7 @@ const fs = require('fs')
 const { promisify } = require('util')
 const lockfile = require('@yarnpkg/lockfile')
 const readPackageTree = require('read-package-tree')
+const assert = require('assert')
 
 class Node {
   constructor (data) {
@@ -147,6 +148,7 @@ const getTreeFromNodeModules = async dir => {
 
   for (const [name] of await getTopLevelDependencies(dir)) {
     const dataNode = data.children.find(c => c.name === name)
+    assert(dataNode, 'Please run `npm install` first')
     const treeNode = new Node({
       name,
       version: dataNode.package.version
