@@ -1,6 +1,6 @@
 {
   "name": "@ns-private/universal-module-tree",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "UNLICENSED",
   "repository": "nodesource/universal-module-tree",
   "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
