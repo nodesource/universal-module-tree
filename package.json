@@ -1,0 +1,20 @@
+{
+  "name": "universal-module-tree",
+  "version": "1.2.3",
+  "license": "MIT",
+  "repository": "nodesource/universal-module-tree",
+  "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
+  "scripts": {
+    "test": "standard && npm run test:deps && node example.js",
+    "test:deps": "dependency-check . --quiet && dependency-check . --quiet --unused --no-dev"
+  },
+  "devDependencies": {
+    "dependency-check": "^3.2.1",
+    "json-stringify-safe": "^5.0.1",
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "read-package-tree": "^5.2.1"
+  }
+}
