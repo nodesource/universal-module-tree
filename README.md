@@ -1,5 +1,7 @@
 # universal-module-tree
 
+[![Build Status](https://travis-ci.org/nodesource/universal-module-tree.svg?branch=master)](https://travis-ci.org/nodesource/universal-module-tree)
+
 Get a full module tree from `package-lock.json`, `yarn.lock` or `node_modules/**`.
 
 ## Usage
