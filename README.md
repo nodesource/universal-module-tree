@@ -52,6 +52,9 @@ $ npm install universal-module-tree
 ## API
 
 ### getTree(dir) => `Promise`
+### getTree.fromPackageLock({ packageLock, packageJSON })
+### getTree.fromYarnLock({ yarnLock, packageJSON })
+### getTree.fromNodeModules(path)
 
 ## License & copyright
 

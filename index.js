@@ -15,14 +15,19 @@ class Node {
 
 const getTree = async dir =>
   await exists(`${dir}/package-lock.json`)
-    ? getTreeFromPackageLock(dir)
+    ? getTreeFromPackageLock({
+      packageLock: await readJSON(`${dir}/package-lock.json`),
+      packageJSON: await readJSON(`${dir}/package.json`)
+    })
     : await exists(`${dir}/yarn.lock`)
-      ? getTreeFromYarnLock(dir)
+      ? getTreeFromYarnLock({
+        yarnLock: await promisify(fs.readFile)(`${dir}/yarn.lock`, 'utf8'),
+        packageJSON: await readJSON(`${dir}/package.json`)
+      })
       : getTreeFromNodeModules(dir)
 
-const getTreeFromPackageLock = async dir => {
+const getTreeFromPackageLock = async ({ packageLock, packageJSON }) => {
   const tree = new Node()
-  const packageLock = await readJSON(`${dir}/package-lock.json`)
   const pkgs = new Map()
 
   const walk = (treeNode, packageLockNode) => {
@@ -52,7 +57,7 @@ const getTreeFromPackageLock = async dir => {
     }
   }
 
-  for (const [name] of await getTopLevelDependencies(dir)) {
+  for (const [name] of await getAllDependencies(packageJSON)) {
     const packageLockNode = packageLock.dependencies[name]
     if (!packageLockNode) continue
     packageLockNode.name = name
@@ -68,9 +73,8 @@ const getTreeFromPackageLock = async dir => {
   return tree
 }
 
-const getTreeFromYarnLock = async dir => {
-  const buf = await promisify(fs.readFile)(`${dir}/yarn.lock`)
-  const yarnLock = lockfile.parse(buf.toString())
+const getTreeFromYarnLock = async ({ yarnLock: yarnLockString, packageJSON }) => {
+  const yarnLock = lockfile.parse(yarnLockString)
   const tree = new Node()
   const pkgs = new Map()
 
@@ -101,7 +105,7 @@ const getTreeFromYarnLock = async dir => {
     }
   }
 
-  for (const [name, semver] of await getTopLevelDependencies(dir)) {
+  for (const [name, semver] of await getAllDependencies(packageJSON)) {
     const treeNode = new Node({
       name,
       version: yarnLock.object[`${name}@${semver}`].version,
@@ -147,7 +151,7 @@ const getTreeFromNodeModules = async dir => {
     }
   }
 
-  for (const [name] of await getTopLevelDependencies(dir)) {
+  for (const [name] of await getAllDependencies(readJSON(`${dir}/package.json`))) {
     const dataNode = data.children.find(c => c.package.name === name)
     assert(dataNode, 'Please run `npm install` first')
     const treeNode = new Node({
@@ -168,9 +172,6 @@ const getAllDependencies = pkg =>
     ...Object.entries(pkg.optionalDependencies || {})
   ])
 
-const getTopLevelDependencies = async dir =>
-  getAllDependencies(await readJSON(`${dir}/package.json`))
-
 const readJSON = async file => {
   const buf = await promisify(fs.readFile)(file)
   return JSON.parse(buf.toString())
@@ -186,3 +187,6 @@ const exists = async file => {
 }
 
 module.exports = getTree
+module.exports.fromPackageLock = getTreeFromPackageLock
+module.exports.fromYarnLock = getTreeFromYarnLock
+module.exports.fromNodeModules = getTreeFromNodeModules
