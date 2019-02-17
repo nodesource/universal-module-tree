@@ -23,3 +23,35 @@ test('getTree.fromYarnLock', async t => {
     packageJSON: require('./package')
   }))
 })
+
+test('getTree.flatten', async t => {
+  const nodeA = {
+    data: {
+      name: 'a',
+      version: '0'
+    },
+    children: [
+      {
+        data: {
+          name: 'b',
+          version: '0'
+        },
+        children: []
+      }
+    ]
+  }
+  t.deepEqual(getTree.flatten({
+    children: [nodeA]
+  }), [
+    {
+      name: 'a',
+      version: '0',
+      paths: [[]]
+    },
+    {
+      name: 'b',
+      version: '0',
+      paths: [[nodeA]]
+    }
+  ])
+})

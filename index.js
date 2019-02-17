@@ -5,6 +5,7 @@ const { promisify } = require('util')
 const lockfile = require('@yarnpkg/lockfile')
 const readPackageTree = require('read-package-tree')
 const assert = require('assert')
+const flatten = require('./lib/flatten')
 
 class Node {
   constructor (data) {
@@ -190,3 +191,4 @@ module.exports = getTree
 module.exports.fromPackageLock = getTreeFromPackageLock
 module.exports.fromYarnLock = getTreeFromYarnLock
 module.exports.fromNodeModules = getTreeFromNodeModules
+module.exports.flatten = flatten
