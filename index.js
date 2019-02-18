@@ -6,6 +6,7 @@ const lockfile = require('@yarnpkg/lockfile')
 const readPackageTree = require('read-package-tree')
 const assert = require('assert')
 const flatten = require('./lib/flatten')
+const { join } = require('path')
 
 class Node {
   constructor (data) {
@@ -27,7 +28,7 @@ const getTree = async dir =>
       })
       : getTreeFromNodeModules(dir)
 
-const getTreeFromPackageLock = async ({ packageLock, packageJSON }) => {
+const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
   const tree = new Node()
   const pkgs = new Map()
 
@@ -58,7 +59,7 @@ const getTreeFromPackageLock = async ({ packageLock, packageJSON }) => {
     }
   }
 
-  for (const [name] of await getAllDependencies(packageJSON)) {
+  for (const [name] of getAllDependencies(packageJSON)) {
     const packageLockNode = packageLock.dependencies[name]
     if (!packageLockNode) continue
     packageLockNode.name = name
@@ -74,7 +75,7 @@ const getTreeFromPackageLock = async ({ packageLock, packageJSON }) => {
   return tree
 }
 
-const getTreeFromYarnLock = async ({ yarnLock: yarnLockString, packageJSON }) => {
+const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
   const yarnLock = lockfile.parse(yarnLockString)
   const tree = new Node()
   const pkgs = new Map()
@@ -106,7 +107,7 @@ const getTreeFromYarnLock = async ({ yarnLock: yarnLockString, packageJSON }) =>
     }
   }
 
-  for (const [name, semver] of await getAllDependencies(packageJSON)) {
+  for (const [name, semver] of getAllDependencies(packageJSON)) {
     const treeNode = new Node({
       name,
       version: yarnLock.object[`${name}@${semver}`].version,
@@ -166,6 +167,37 @@ const getTreeFromNodeModules = async dir => {
   return tree
 }
 
+const getTreeFromNSolid = packages => {
+  const tree = new Node()
+  const pkgs = new Map()
+
+  const walk = (treeNode, packagesNode) => {
+    const dependencies = packagesNode.dependencies
+    for (const dependencyPathRel of dependencies) {
+      const dependencyPathAbs = join(packagesNode.path, dependencyPathRel)
+      const dependencyNode = packages.find(pkg => pkg.path === dependencyPathAbs)
+
+      const id = `${dependencyNode.name}@${dependencyNode.version}`
+      let treeChild
+      if (pkgs.has(id)) {
+        treeChild = pkgs.get(id)
+        treeNode.children.push(treeChild)
+      } else {
+        treeChild = new Node({
+          name: dependencyNode.name,
+          version: dependencyNode.version
+        })
+        pkgs.set(id, treeChild)
+        treeNode.children.push(treeChild)
+        walk(treeChild, dependencyNode)
+      }
+    }
+  }
+  walk(tree, packages[0])
+
+  return tree
+}
+
 const getAllDependencies = pkg =>
   new Set([
     ...Object.entries(pkg.dependencies || {}),
@@ -191,4 +223,5 @@ module.exports = getTree
 module.exports.fromPackageLock = getTreeFromPackageLock
 module.exports.fromYarnLock = getTreeFromYarnLock
 module.exports.fromNodeModules = getTreeFromNodeModules
+module.exports.fromNSolid = getTreeFromNSolid
 module.exports.flatten = flatten

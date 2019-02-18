@@ -5,7 +5,7 @@
   "repository": "nodesource/universal-module-tree",
   "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
   "scripts": {
-    "test": "standard && npm run test:deps && tap test.js",
+    "test": "standard && npm run test:deps && tap test/*.js",
     "test:deps": "dependency-check . --quiet && dependency-check . --quiet --unused --no-dev"
   },
   "devDependencies": {

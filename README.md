@@ -43,6 +43,18 @@ $ node example.js | head -n25
 
 ```
 
+Or with [NSolid](https://nodesource.com/products/nsolid):
+
+```js
+const getTree = require('universal-module-tree')
+
+nsolid.packages((err, packages) => {
+  if (err) throw err
+  const tree = getTree.fromNSolid(packages)
+  console.log(JSON.stringify(tree, null, 2))
+})
+```
+
 ## Installation
 
 ```bash
@@ -52,9 +64,10 @@ $ npm install universal-module-tree
 ## API
 
 ### getTree(dir) => `Promise`
-### getTree.fromPackageLock({ packageLock, packageJSON }) => `Promise`
-### getTree.fromYarnLock({ yarnLock, packageJSON }) => `Promise`
+### getTree.fromPackageLock({ packageLock, packageJSON }) => `Object`
+### getTree.fromYarnLock({ yarnLock, packageJSON }) => `Object`
 ### getTree.fromNodeModules(path) => `Promise`
+### getTree.fromNSolid(packages) => `Object`
 ### getTree.flatten(tree) => `Array`
 
 ## License & copyright

@@ -1,0 +1,657 @@
+[
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs",
+    "name": "subfs",
+    "main": "index.js",
+    "version": "1.0.0",
+    "dependencies": [
+      "node_modules/tap"
+    ],
+    "modules": []
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/bind-obj-methods",
+    "name": "bind-obj-methods",
+    "main": "bind-obj-methods.js",
+    "version": "1.0.0",
+    "dependencies": [],
+    "modules": [
+      {
+        "path": "bind-obj-methods.js",
+        "shasum": "fb9753c2145f8566a6794675d0991fa3c6991b3f"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/bluebird",
+    "name": "bluebird",
+    "main": "./js/release/bluebird.js",
+    "version": "3.5.3",
+    "dependencies": [
+      ""
+    ],
+    "modules": [
+      {
+        "path": "js/release/any.js",
+        "shasum": "424dfe2a1afeaad729ca2be5ccfd443311716c41"
+      },
+      {
+        "path": "js/release/async.js",
+        "shasum": "f37a2ef4a85f402afa91d9c765bd48fcf00c4f74"
+      },
+      {
+        "path": "js/release/bind.js",
+        "shasum": "6ba64f83e985a1cb7dcf945490e4c280460ccb25"
+      },
+      {
+        "path": "js/release/bluebird.js",
+        "shasum": "f68f4e491f49be5a5a3c5d04fafcd8abaf02fc2a"
+      },
+      {
+        "path": "js/release/call_get.js",
+        "shasum": "b53dcc39da361dbc72a49ced90d5290d94c70b80"
+      },
+      {
+        "path": "js/release/cancel.js",
+        "shasum": "1a6c901863d671048f58095fe9b568b2a8407729"
+      },
+      {
+        "path": "js/release/catch_filter.js",
+        "shasum": "cbdedec0db19fe2af76d5594ed8bf819000d7c79"
+      },
+      {
+        "path": "js/release/context.js",
+        "shasum": "ea7eb1ab2c8231fa6bfa8446cf730736735396e0"
+      },
+      {
+        "path": "js/release/debuggability.js",
+        "shasum": "70ddac209e9020fccfd268bfe7e76f2dc3669498"
+      },
+      {
+        "path": "js/release/direct_resolve.js",
+        "shasum": "470ca4d9a7e387ceceb383bc2640202f5fa6bda2"
+      },
+      {
+        "path": "js/release/each.js",
+        "shasum": "44949d491571dd38f6ffdd777cb44f96aebb5fc8"
+      },
+      {
+        "path": "js/release/errors.js",
+        "shasum": "98deaaee17f36851937108257e028a7e237b3f5e"
+      },
+      {
+        "path": "js/release/es5.js",
+        "shasum": "019c4e8b62031ea49aedc86dedd20318c6122698"
+      },
+      {
+        "path": "js/release/filter.js",
+        "shasum": "a5f3aee4afbc67d372e5b4fbaeac047d0d9c779b"
+      },
+      {
+        "path": "js/release/finally.js",
+        "shasum": "cc388e93ecc2e12145c080cc67b0d8517e481c13"
+      },
+      {
+        "path": "js/release/generators.js",
+        "shasum": "6b334d17275b48548e44f74f477b2e8bd49da304"
+      },
+      {
+        "path": "js/release/join.js",
+        "shasum": "5ab50e4fd76d09506700b47e7672c9d528816d4b"
+      },
+      {
+        "path": "js/release/map.js",
+        "shasum": "4d96c67c999d7f8a155934d25bfe8cc4912ad469"
+      },
+      {
+        "path": "js/release/method.js",
+        "shasum": "02a5a493c2cf2045fbb20b2751381e4b4e29dbe8"
+      },
+      {
+        "path": "js/release/nodeback.js",
+        "shasum": "46fc87ede6ca68434439a5216fe8e6f89d8d8a1f"
+      },
+      {
+        "path": "js/release/nodeify.js",
+        "shasum": "ebd75c010fcf1c4f709f4b444e62b80cfcde2a0f"
+      },
+      {
+        "path": "js/release/promise.js",
+        "shasum": "7ea023ff37a245f9cfff4258f2abb2ab9be5a011"
+      },
+      {
+        "path": "js/release/promise_array.js",
+        "shasum": "2b05f82b39c408715260b264dbeb886d080efc59"
+      },
+      {
+        "path": "js/release/promisify.js",
+        "shasum": "3831be99120a57a3c07406f7012467f02346e92c"
+      },
+      {
+        "path": "js/release/props.js",
+        "shasum": "d26e05c3860fd45b7ae9008995493c6d01c2f2e7"
+      },
+      {
+        "path": "js/release/queue.js",
+        "shasum": "e6fddd439658a46c57132ec8d07dd04bf1d743e6"
+      },
+      {
+        "path": "js/release/race.js",
+        "shasum": "5f5b5403be19793dec5658af27fe996173eb4990"
+      },
+      {
+        "path": "js/release/reduce.js",
+        "shasum": "8f0d6b75ed5682d3a7e45254d76618258b45bb2a"
+      },
+      {
+        "path": "js/release/schedule.js",
+        "shasum": "bad77d032baf76d04dd40cc5f01c5d4adebd4578"
+      },
+      {
+        "path": "js/release/settle.js",
+        "shasum": "36f97c3732ae907af622fd4c859d29da1255fdfa"
+      },
+      {
+        "path": "js/release/some.js",
+        "shasum": "b548ddd7eb6b35ae6e97d931e0a8ef6dd512b3b5"
+      },
+      {
+        "path": "js/release/synchronous_inspection.js",
+        "shasum": "21be4c93fd5b93b07315c5edc930800e686e4dea"
+      },
+      {
+        "path": "js/release/thenables.js",
+        "shasum": "b06e617f4b1e5c9c33c9c4e0baabe709550154b1"
+      },
+      {
+        "path": "js/release/timers.js",
+        "shasum": "ad830b808b63bd4b291a3b23210bdaf850f1f818"
+      },
+      {
+        "path": "js/release/using.js",
+        "shasum": "5b287a7d967647d38091aec63f880abc46caeb4f"
+      },
+      {
+        "path": "js/release/util.js",
+        "shasum": "bf2665ce52c39c8ac3c85150791feb2d3ca0bc50"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/clean-yaml-object",
+    "name": "clean-yaml-object",
+    "version": "0.1.0",
+    "dependencies": [],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "5c50bddd29ae0b777251f1f734105040faa05cc4"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/deeper",
+    "name": "deeper",
+    "version": "2.1.0",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "9a236124000ffd500300fa588bb049a0889c361e"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/function-loop",
+    "name": "function-loop",
+    "main": "index.js",
+    "version": "1.0.1",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "c397784cac1abb102a9f15f64aae06cd9f497b7a"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/js-yaml",
+    "name": "js-yaml",
+    "version": "3.12.1",
+    "dependencies": [
+      "node_modules/esprima"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "1782c208617a1e4a087c61d82da6efd86d04cb82"
+      },
+      {
+        "path": "lib/js-yaml.js",
+        "shasum": "faf3ec71c84b29e43e20adc783933d3aaf2c03e0"
+      },
+      {
+        "path": "lib/js-yaml/common.js",
+        "shasum": "f98f5657b7f32c09d39b720d18d07fab29b09c05"
+      },
+      {
+        "path": "lib/js-yaml/dumper.js",
+        "shasum": "6aab7f86a7597757033a677c1dcbc8655e173a8d"
+      },
+      {
+        "path": "lib/js-yaml/exception.js",
+        "shasum": "311052458bd357250b6809e33f1bfc66871abe1b"
+      },
+      {
+        "path": "lib/js-yaml/loader.js",
+        "shasum": "5f98444a81c24dbbf31f9fdc02bb788c1cbb1cde"
+      },
+      {
+        "path": "lib/js-yaml/mark.js",
+        "shasum": "9bf058de26980a50acf01c4d257f8c66060bbf99"
+      },
+      {
+        "path": "lib/js-yaml/schema.js",
+        "shasum": "3bb3cc230b10b355700a9f60a029cc58e960b25d"
+      },
+      {
+        "path": "lib/js-yaml/schema/core.js",
+        "shasum": "3942b19d860daad732f574c060535ef03e77bf4e"
+      },
+      {
+        "path": "lib/js-yaml/schema/default_full.js",
+        "shasum": "f49d934b90306c570d932a837ff4d8b5620b65c8"
+      },
+      {
+        "path": "lib/js-yaml/schema/default_safe.js",
+        "shasum": "4e6038ca3bd2862b87aeac97d58f72f13bd1dcb2"
+      },
+      {
+        "path": "lib/js-yaml/schema/failsafe.js",
+        "shasum": "93b94b7577f2529bd0fbbb9115df58d994204b8f"
+      },
+      {
+        "path": "lib/js-yaml/schema/json.js",
+        "shasum": "83b3938255db10353d6cb92bd8a8fc72490277fd"
+      },
+      {
+        "path": "lib/js-yaml/type.js",
+        "shasum": "844dd1243c2b6a6cac723f50da8699c089ff14a5"
+      },
+      {
+        "path": "lib/js-yaml/type/binary.js",
+        "shasum": "59c69683c084d982fd919bf1c49ee8b67cf2ac9c"
+      },
+      {
+        "path": "lib/js-yaml/type/bool.js",
+        "shasum": "2524fe24d6dcd4e4a14b62696a5fd16e54d8f3f4"
+      },
+      {
+        "path": "lib/js-yaml/type/float.js",
+        "shasum": "7949500ad6a0be9321f1e880c80af46a41ae88d3"
+      },
+      {
+        "path": "lib/js-yaml/type/int.js",
+        "shasum": "ce6a30244a3ce017aaf98317d991379f2bc98ee0"
+      },
+      {
+        "path": "lib/js-yaml/type/js/function.js",
+        "shasum": "495916644b7267794291ceb743aba58eab2b45be"
+      },
+      {
+        "path": "lib/js-yaml/type/js/regexp.js",
+        "shasum": "fa2f404f30b0588703ca112e9ef53eee3d61ad6f"
+      },
+      {
+        "path": "lib/js-yaml/type/js/undefined.js",
+        "shasum": "6ceced3a6cd321903999162508c5ba156a08d3f3"
+      },
+      {
+        "path": "lib/js-yaml/type/map.js",
+        "shasum": "2c6bd8f6087b3ba90952279dc4b40e283a6a4b7d"
+      },
+      {
+        "path": "lib/js-yaml/type/merge.js",
+        "shasum": "5b5d2be0a4ec4ca47376d88c872a2772bd876ffa"
+      },
+      {
+        "path": "lib/js-yaml/type/null.js",
+        "shasum": "5a1ca7a1f393f1a831dac6021bec81614cf483cd"
+      },
+      {
+        "path": "lib/js-yaml/type/omap.js",
+        "shasum": "27ae167ab147e1a9a155440eef86c78a6776999e"
+      },
+      {
+        "path": "lib/js-yaml/type/pairs.js",
+        "shasum": "a62980f470f956a1102ddc33a533dd356d964342"
+      },
+      {
+        "path": "lib/js-yaml/type/seq.js",
+        "shasum": "02deef81e8770ec42adf39e0ac93a8efcae87cf2"
+      },
+      {
+        "path": "lib/js-yaml/type/set.js",
+        "shasum": "54bd5eec6a8a57a8792d540f30343513077fe7e8"
+      },
+      {
+        "path": "lib/js-yaml/type/str.js",
+        "shasum": "efd9f046c952cd16f88e8b5dcdcf25f612f6974f"
+      },
+      {
+        "path": "lib/js-yaml/type/timestamp.js",
+        "shasum": "1746736bdaee28bf5cb426370fd6d1d609721fdc"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/js-yaml/node_modules/esprima",
+    "name": "esprima",
+    "main": "dist/esprima.js",
+    "version": "4.0.1",
+    "dependencies": [],
+    "modules": [
+      {
+        "path": "dist/esprima.js",
+        "shasum": "c393489988d0261842c5c6ed4210efc5ad02dd5c"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/only-shallow",
+    "name": "only-shallow",
+    "main": "index.js",
+    "version": "1.2.0",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "41fe2e4f45030ea83db4d0b6b9e9479cef1fadac"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/own-or",
+    "name": "own-or",
+    "main": "own-or.js",
+    "version": "1.0.0",
+    "dependencies": [],
+    "modules": [
+      {
+        "path": "own-or.js",
+        "shasum": "1f05e933de58984ff00ea6ddf860be0b06d8d65b"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/own-or-env",
+    "name": "own-or-env",
+    "main": "own-or-env.js",
+    "version": "1.0.1",
+    "dependencies": [
+      "../own-or",
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "own-or-env.js",
+        "shasum": "db313dfb0470966e419f916f9fd937ac2998c6ea"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/signal-exit",
+    "name": "signal-exit",
+    "main": "index.js",
+    "version": "3.0.2",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "4c79d6ab52a7473a4e5e096142c619e4fbbac3a6"
+      },
+      {
+        "path": "signals.js",
+        "shasum": "6e1c2ff72044c1901590ffd119245461fb85a6bc"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/source-map",
+    "name": "source-map",
+    "main": "./source-map.js",
+    "version": "0.5.7",
+    "dependencies": [],
+    "modules": [
+      {
+        "path": "lib/array-set.js",
+        "shasum": "ad62f4ee15345ba799a00c59dd226690b4d1d1d2"
+      },
+      {
+        "path": "lib/base64-vlq.js",
+        "shasum": "493d3d895198dfaefe88d2b066c272552ea35889"
+      },
+      {
+        "path": "lib/base64.js",
+        "shasum": "269e8e4dcb82db12f6e2a6187e7be46bee604ab0"
+      },
+      {
+        "path": "lib/binary-search.js",
+        "shasum": "b4333085d02fb4c091361de85d5cb368a3ce7632"
+      },
+      {
+        "path": "lib/mapping-list.js",
+        "shasum": "68a9ed5c0a48a384f64efaec04444a464952509d"
+      },
+      {
+        "path": "lib/quick-sort.js",
+        "shasum": "e4adf67561f701e7563d7db979e5c9ff8d60267b"
+      },
+      {
+        "path": "lib/source-map-consumer.js",
+        "shasum": "bf1d511c205859d7f157c1e89fd71492fd61ad4b"
+      },
+      {
+        "path": "lib/source-map-generator.js",
+        "shasum": "2e52163409a7d8e48e44e4da60e59e9ad2beae3b"
+      },
+      {
+        "path": "lib/source-node.js",
+        "shasum": "731e14ee0e178a85c2db8b5e96aea97c635a29c2"
+      },
+      {
+        "path": "lib/util.js",
+        "shasum": "91079da4160ce05a7760b1e2bdc5f3d2cca955b0"
+      },
+      {
+        "path": "source-map.js",
+        "shasum": "54dd50c132e3a298bcad252861389300ac0ce265"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/source-map-support",
+    "name": "source-map-support",
+    "main": "./source-map-support.js",
+    "version": "0.4.18",
+    "dependencies": [
+      "../source-map"
+    ],
+    "modules": [
+      {
+        "path": "source-map-support.js",
+        "shasum": "308ed3c862a6b7513bc68f27184c666f4196a764"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/stack-utils",
+    "name": "stack-utils",
+    "version": "1.0.2",
+    "dependencies": [
+      "../bluebird",
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "63da69a3b5280cbfe8642183819c76e2d5e89b19"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/tap",
+    "name": "tap",
+    "main": "lib/tap.js",
+    "version": "10.2.2",
+    "dependencies": [
+      "../bind-obj-methods",
+      "../bluebird",
+      "../clean-yaml-object",
+      "../deeper",
+      "../function-loop",
+      "../js-yaml",
+      "../only-shallow",
+      "../own-or",
+      "../own-or-env",
+      "../signal-exit",
+      "../source-map-support",
+      "../stack-utils",
+      "../tap-parser",
+      "../tmatch",
+      "../trivial-deferred",
+      "../yapool"
+    ],
+    "modules": [
+      {
+        "path": "lib/asserts.js",
+        "shasum": "7d9b65bf73e9b5b76051909b77b32b25dd9c5aef"
+      },
+      {
+        "path": "lib/base.js",
+        "shasum": "8d7464106982838e2a98af4e6733c4085bf8bac6"
+      },
+      {
+        "path": "lib/clean-yaml-object.js",
+        "shasum": "f2a145c86115e2b49c9080b1f697e34145590029"
+      },
+      {
+        "path": "lib/diags.js",
+        "shasum": "d59d9cd406c6b110d718028e717e3f760b199dda"
+      },
+      {
+        "path": "lib/extra-from-error.js",
+        "shasum": "4cd74293608741b481886567b945c3190c9b3f41"
+      },
+      {
+        "path": "lib/mocha.js",
+        "shasum": "c176dcadfd5b7c0e3e878010562f4e8a7022e33a"
+      },
+      {
+        "path": "lib/obj-to-yaml.js",
+        "shasum": "0beb6c526380c70ed8b80e2f015a6321f46283e2"
+      },
+      {
+        "path": "lib/parse-test-args.js",
+        "shasum": "9e8842f4e9840e42546cfafb695460a50567ba33"
+      },
+      {
+        "path": "lib/point.js",
+        "shasum": "3beb42a2a04ccbb4ec398a5ec92aba0c8aee4aa7"
+      },
+      {
+        "path": "lib/spawn.js",
+        "shasum": "e7341d4c394cd66a385cb263b8c37f83d16258b0"
+      },
+      {
+        "path": "lib/stack.js",
+        "shasum": "95e71707c6ae481605d566d90ebf99043a56007b"
+      },
+      {
+        "path": "lib/stdin.js",
+        "shasum": "f4f8b1f450dd6fe5b1ce1ca9cc4cab20dc90bf6c"
+      },
+      {
+        "path": "lib/synonyms.js",
+        "shasum": "de659acc54cfdfcf6422ff72bd478a09608a582f"
+      },
+      {
+        "path": "lib/tap.js",
+        "shasum": "9902080a8411b35318aa7798fc0b9aff2a2968e6"
+      },
+      {
+        "path": "lib/test.js",
+        "shasum": "d299099e0ee047327f224f6b061dae8eb43e7ea0"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/tap-parser",
+    "name": "tap-parser",
+    "main": "index.js",
+    "version": "5.4.0",
+    "dependencies": [
+      "../js-yaml",
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "c0cd16359ed7efda34a1cc0271da8ae7a2a0f80e"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/tmatch",
+    "name": "tmatch",
+    "main": "index.js",
+    "version": "3.1.0",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "8f37db1f12d4f2d7a88ff0b6674f200007a5d95e"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/trivial-deferred",
+    "name": "trivial-deferred",
+    "main": "index.js",
+    "version": "1.0.1",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "4bc15a159fd8f7e68a0d3685e98681ea8935dddc"
+      }
+    ]
+  },
+  {
+    "path": "/Users/julian/dev/juliangruber/subfs/node_modules/yapool",
+    "name": "yapool",
+    "main": "index.js",
+    "version": "1.0.0",
+    "dependencies": [
+      "../tap"
+    ],
+    "modules": [
+      {
+        "path": "index.js",
+        "shasum": "8ce82c38a402f1a16f4c3afe77d4b68ca52dfa79"
+      }
+    ]
+  }
+]
