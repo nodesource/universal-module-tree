@@ -14,7 +14,8 @@ test('getTree.fromPackageJSON', async t => {
 })
 
 test('getTree.fromNodeModules', async t => {
-  t.ok(await getTree.fromNodeModules(`${__dirname}/..`))
+  const tree = await getTree.fromNodeModules(`${__dirname}/..`)
+  t.ok(tree.children.length > 0, 'found dependencies')
 })
 
 test('getTree.fromYarnLock', async t => {
