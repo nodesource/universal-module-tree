@@ -7,6 +7,7 @@ const readPackageTree = require('read-package-tree')
 const assert = require('assert')
 const flatten = require('./lib/flatten')
 const { join } = require('path')
+const debug = require('debug')('universal-module-tree')
 
 class Node {
   constructor (data) {
@@ -29,6 +30,7 @@ const getTree = async dir =>
       : getTreeFromNodeModules(dir)
 
 const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
+  debug('get tree from package-lock.json')
   const tree = new Node()
   const pkgs = new Map()
 
@@ -76,6 +78,7 @@ const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
 }
 
 const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
+  debug('get tree from yarn.lock')
   const yarnLock = lockfile.parse(yarnLockString)
   const tree = new Node()
   const pkgs = new Map()
@@ -121,6 +124,7 @@ const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
 }
 
 const getTreeFromNodeModules = async dir => {
+  debug('get tree from node_modules/')
   const tree = new Node()
   const data = await promisify(readPackageTree)(dir)
   const pkgs = new Map()
@@ -168,6 +172,7 @@ const getTreeFromNodeModules = async dir => {
 }
 
 const getTreeFromNSolid = packages => {
+  debug('get tree from NSolid')
   const tree = new Node()
   const pkgs = new Map()
 
