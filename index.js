@@ -157,7 +157,7 @@ const getTreeFromNodeModules = async dir => {
     }
   }
 
-  for (const [name] of await getAllDependencies(readJSON(`${dir}/package.json`))) {
+  for (const [name] of await getAllDependencies(await readJSON(`${dir}/package.json`))) {
     const dataNode = data.children.find(c => c.package.name === name)
     assert(dataNode, 'Please run `npm install` first')
     const treeNode = new Node({
