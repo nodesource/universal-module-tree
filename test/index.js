@@ -3,14 +3,16 @@ const getTree = require('..')
 const fs = require('fs')
 
 test('getTree(dir)', async t => {
-  t.ok(await getTree(`${__dirname}/..`))
+  const tree = await getTree(`${__dirname}/..`)
+  t.ok(tree.children.length > 0, 'found dependencies')
 })
 
 test('getTree.fromPackageJSON', async t => {
-  t.ok(getTree.fromPackageLock({
+  const tree = getTree.fromPackageLock({
     packageJSON: require('../package'),
     packageLock: require('../package-lock')
-  }))
+  })
+  t.ok(tree.children.length > 0, 'found dependencies')
 })
 
 test('getTree.fromNodeModules', async t => {
@@ -19,14 +21,16 @@ test('getTree.fromNodeModules', async t => {
 })
 
 test('getTree.fromYarnLock', async t => {
-  t.ok(getTree.fromYarnLock({
+  const tree = getTree.fromYarnLock({
     yarnLock: fs.readFileSync(`${__dirname}/yarn.lock`, 'utf8'),
     packageJSON: require('../package')
-  }))
+  })
+  t.ok(tree.children.length > 0, 'found dependencies')
 })
 
 test('getTree.fromNSolid', async t => {
-  t.ok(getTree.fromNSolid(require('./nsolid')))
+  const tree = getTree.fromNSolid(require('./nsolid'))
+  t.ok(tree.children.length > 0, 'found dependencies')
 })
 
 test('getTree.flatten', async t => {
