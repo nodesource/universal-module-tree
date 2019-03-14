@@ -111,6 +111,7 @@ const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
   }
 
   for (const [name, semver] of getAllDependencies(packageJSON)) {
+    if (/^link:/.test(semver)) continue
     const treeNode = new Node({
       name,
       version: yarnLock.object[`${name}@${semver}`].version,

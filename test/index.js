@@ -21,11 +21,20 @@ test('getTree.fromNodeModules', async t => {
 })
 
 test('getTree.fromYarnLock', async t => {
-  const tree = getTree.fromYarnLock({
-    yarnLock: fs.readFileSync(`${__dirname}/yarn.lock`, 'utf8'),
-    packageJSON: require('../package')
+  await t.test('this project', async t => {
+    const tree = getTree.fromYarnLock({
+      yarnLock: fs.readFileSync(`${__dirname}/yarn.lock`, 'utf8'),
+      packageJSON: require('../package')
+    })
+    t.ok(tree.children.length > 0, 'found dependencies')
   })
-  t.ok(tree.children.length > 0, 'found dependencies')
+  await t.test('react', async t => {
+    const tree = getTree.fromYarnLock({
+      yarnLock: fs.readFileSync(`${__dirname}/react/yarn.lock`, 'utf8'),
+      packageJSON: require('./react/package')
+    })
+    t.ok(tree.children.length > 0, 'found dependencies')
+  })
 })
 
 test('getTree.fromNSolid', async t => {
