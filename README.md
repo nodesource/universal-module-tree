@@ -63,12 +63,16 @@ $ npm install universal-module-tree
 
 ## API
 
-### getTree(dir) => `Promise`
-### getTree.fromPackageLock({ packageLock, packageJSON }) => `Object`
-### getTree.fromYarnLock({ yarnLock, packageJSON }) => `Object`
-### getTree.fromNodeModules(path) => `Promise`
+### getTree(dir, { noDev = false }) => `Promise`
+### getTree.fromPackageLock({ packageLock, packageJSON, noDev = false }) => `Object`
+### getTree.fromYarnLock({ yarnLock, packageJSON, noDev = false }) => `Object`
+### getTree.fromNodeModules(path, { noDev = false }) => `Promise`
 ### getTree.fromNSolid(packages) => `Object`
 ### getTree.flatten(tree) => `Array`
+
+### Options
+
+- `noDev`: exclude `devDependencies`
 
 ## License & copyright
 
