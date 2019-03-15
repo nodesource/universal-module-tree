@@ -16,20 +16,22 @@ class Node {
   }
 }
 
-const getTree = async dir =>
+const getTree = async (dir, opts = {}) =>
   await exists(`${dir}/package-lock.json`)
     ? getTreeFromPackageLock({
       packageLock: await readJSON(`${dir}/package-lock.json`),
-      packageJSON: await readJSON(`${dir}/package.json`)
+      packageJSON: await readJSON(`${dir}/package.json`),
+      ...opts
     })
     : await exists(`${dir}/yarn.lock`)
       ? getTreeFromYarnLock({
         yarnLock: await promisify(fs.readFile)(`${dir}/yarn.lock`, 'utf8'),
-        packageJSON: await readJSON(`${dir}/package.json`)
+        packageJSON: await readJSON(`${dir}/package.json`),
+        ...opts
       })
-      : getTreeFromNodeModules(dir)
+      : getTreeFromNodeModules(dir, opts)
 
-const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
+const getTreeFromPackageLock = ({ packageLock, packageJSON, noDev }) => {
   debug('get tree from package-lock.json')
   const tree = new Node()
   const pkgs = new Map()
@@ -61,7 +63,7 @@ const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
     }
   }
 
-  for (const [name] of getAllDependencies(packageJSON)) {
+  for (const [name] of getAllDependencies(packageJSON, { noDev })) {
     const packageLockNode = packageLock.dependencies[name]
     if (!packageLockNode) continue
     packageLockNode.name = name
@@ -77,7 +79,7 @@ const getTreeFromPackageLock = ({ packageLock, packageJSON }) => {
   return tree
 }
 
-const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
+const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON, noDev }) => {
   debug('get tree from yarn.lock')
   const yarnLock = lockfile.parse(yarnLockString)
   const tree = new Node()
@@ -110,7 +112,7 @@ const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
     }
   }
 
-  for (const [name, semver] of getAllDependencies(packageJSON)) {
+  for (const [name, semver] of getAllDependencies(packageJSON, { noDev })) {
     if (/^link:/.test(semver)) continue
     const treeNode = new Node({
       name,
@@ -124,7 +126,7 @@ const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON }) => {
   return tree
 }
 
-const getTreeFromNodeModules = async dir => {
+const getTreeFromNodeModules = async (dir, { noDev } = {}) => {
   debug('get tree from node_modules/')
   const tree = new Node()
   const data = await promisify(readPackageTree)(dir)
@@ -158,7 +160,7 @@ const getTreeFromNodeModules = async dir => {
     }
   }
 
-  for (const [name] of await getAllDependencies(await readJSON(`${dir}/package.json`))) {
+  for (const [name] of await getAllDependencies(await readJSON(`${dir}/package.json`), { noDev })) {
     const dataNode = data.children.find(c => c.package.name === name)
     assert(dataNode, 'Please run `npm install` first')
     const treeNode = new Node({
@@ -204,10 +206,10 @@ const getTreeFromNSolid = packages => {
   return tree
 }
 
-const getAllDependencies = pkg =>
+const getAllDependencies = (pkg, { noDev } = {}) =>
   new Set([
     ...Object.entries(pkg.dependencies || {}),
-    ...Object.entries(pkg.devDependencies || {}),
+    ...Object.entries((!noDev && pkg.devDependencies) || {}),
     ...Object.entries(pkg.optionalDependencies || {})
   ])
 

@@ -2,10 +2,12 @@
 
 const getTree = require('.')
 const stringify = require('json-stringify-safe')
+const minimist = require('minimist')
 
 const main = async () => {
-  const dir = process.argv[2] || __dirname
-  const tree = await getTree(dir)
+  const argv = minimist(process.argv.slice(2))
+  const dir = argv._[0] || __dirname
+  const tree = await getTree(dir, argv)
   console.log(stringify(tree, null, 2))
 }
 
