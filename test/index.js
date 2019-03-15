@@ -6,8 +6,8 @@ test('getTree(dir)', async t => {
   const tree = await getTree(`${__dirname}/..`)
   t.ok(tree.children.length > 0, 'found dependencies')
 
-  await t.test('no dev', async t => {
-    const treeNoDev = await getTree(`${__dirname}/..`, { dev: false })
+  await t.test('noDev', async t => {
+    const treeNoDev = await getTree(`${__dirname}/..`, { noDev: true })
     t.ok(tree.children.length > 0, 'found dependencies')
     t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
   })
@@ -20,11 +20,11 @@ test('getTree.fromPackageJSON', async t => {
   })
   t.ok(tree.children.length > 0, 'found dependencies')
 
-  await t.test('no dev', async t => {
+  await t.test('noDev', async t => {
     const treeNoDev = getTree.fromPackageLock({
       packageJSON: require('../package'),
       packageLock: require('../package-lock'),
-      dev: false
+      noDev: true
     })
     t.ok(tree.children.length > 0, 'found dependencies')
     t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
@@ -35,8 +35,8 @@ test('getTree.fromNodeModules', async t => {
   const tree = await getTree.fromNodeModules(`${__dirname}/..`)
   t.ok(tree.children.length > 0, 'found dependencies')
 
-  await t.test('no dev', async t => {
-    const treeNoDev = await getTree.fromNodeModules(`${__dirname}/..`, { dev: false })
+  await t.test('noDev', async t => {
+    const treeNoDev = await getTree.fromNodeModules(`${__dirname}/..`, { noDev: true })
     t.ok(tree.children.length > 0, 'found dependencies')
     t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
   })
@@ -50,11 +50,11 @@ test('getTree.fromYarnLock', async t => {
     })
     t.ok(tree.children.length > 0, 'found dependencies')
 
-    await t.test('no dev', async t => {
+    await t.test('noDev', async t => {
       const treeNoDev = getTree.fromYarnLock({
         yarnLock: fs.readFileSync(`${__dirname}/yarn.lock`, 'utf8'),
         packageJSON: require('../package'),
-        dev: false
+        noDev: true
       })
       t.ok(tree.children.length > 0, 'found dependencies')
       t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
@@ -67,11 +67,11 @@ test('getTree.fromYarnLock', async t => {
     })
     t.ok(tree.children.length > 0, 'found dependencies')
 
-    await t.test('no dev', async t => {
+    await t.test('noDev', async t => {
       const treeNoDev = getTree.fromYarnLock({
         yarnLock: fs.readFileSync(`${__dirname}/react/yarn.lock`, 'utf8'),
         packageJSON: require('./react/package'),
-        dev: false
+        noDev: true
       })
       t.ok(tree.children.length > 0, 'found dependencies')
       t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
