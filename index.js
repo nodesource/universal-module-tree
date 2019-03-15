@@ -209,7 +209,7 @@ const getTreeFromNSolid = packages => {
 const getAllDependencies = (pkg, { noDev } = {}) =>
   new Set([
     ...Object.entries(pkg.dependencies || {}),
-    ...Object.entries(!noDev && pkg.devDependencies || {}),
+    ...Object.entries((!noDev && pkg.devDependencies) || {}),
     ...Object.entries(pkg.optionalDependencies || {})
   ])
 
