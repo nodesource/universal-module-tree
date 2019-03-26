@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "isarray": "^2.0.4"
+  }
+}

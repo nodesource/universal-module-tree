@@ -16,6 +16,11 @@ test('getTree(dir)', async t => {
     const tree = await getTree(`${__dirname}/react`)
     t.ok(tree.children.length > 0, 'found dependencies')
   })
+
+  await t.test('node_modules', async t => {
+    const tree = await getTree(`${__dirname}/node-modules`)
+    t.ok(tree.children.length > 0, 'found dependencies')
+  })
 })
 
 test('getTree.fromPackageJSON', async t => {
