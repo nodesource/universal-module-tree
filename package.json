@@ -5,13 +5,14 @@
   "repository": "nodesource/universal-module-tree",
   "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
   "scripts": {
-    "test": "standard && npm run test:deps && tap test/*.js",
+    "test": "standard && npm run test:deps && nyc -- tap test/*.js",
     "test:deps": "dependency-check . --quiet && dependency-check . --quiet --unused --no-dev"
   },
   "devDependencies": {
     "dependency-check": "^3.2.1",
     "json-stringify-safe": "^5.0.1",
     "minimist": "^1.2.0",
+    "nyc": "^13.3.0",
     "standard": "^12.0.1",
     "tap": "^12.5.3"
   },
