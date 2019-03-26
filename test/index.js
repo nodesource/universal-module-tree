@@ -85,13 +85,14 @@ test('getTree.fromNSolid', async t => {
 })
 
 test('getTree.flatten', async t => {
+  let nodeB
   const nodeA = {
     data: {
       name: 'a',
       version: '0'
     },
     children: [
-      {
+      nodeB = {
         data: {
           name: 'b',
           version: '0'
@@ -100,13 +101,14 @@ test('getTree.flatten', async t => {
       }
     ]
   }
+  nodeB.children.push(nodeA)
   t.deepEqual(getTree.flatten({
     children: [nodeA]
   }), [
     {
       name: 'a',
       version: '0',
-      paths: [[]]
+      paths: [[], [nodeA, nodeB]]
     },
     {
       name: 'b',
