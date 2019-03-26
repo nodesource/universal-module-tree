@@ -11,6 +11,11 @@ test('getTree(dir)', async t => {
     t.ok(tree.children.length > 0, 'found dependencies')
     t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
   })
+
+  await t.test('yarn', async t => {
+    const tree = await getTree(`${__dirname}/react`)
+    t.ok(tree.children.length > 0, 'found dependencies')
+  })
 })
 
 test('getTree.fromPackageJSON', async t => {
