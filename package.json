@@ -1,6 +1,6 @@
 {
   "name": "universal-module-tree",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "license": "MIT",
   "repository": "nodesource/universal-module-tree",
   "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
