@@ -90,8 +90,14 @@ test('getTree.fromYarnLock', async t => {
 })
 
 test('getTree.fromNSolid', async t => {
-  const tree = getTree.fromNSolid(require('./nsolid'))
-  t.ok(tree.children.length > 0, 'found dependencies')
+  await t.test('subfs', async t => {
+    const tree = getTree.fromNSolid(require('./nsolid'))
+    t.ok(tree.children.length > 0, 'found dependencies')
+  })
+  await t.test('no dependencies', async t => {
+    const tree = getTree.fromNSolid([])
+    t.ok(tree.children.length === 0, 'found no dependencies')
+  })
 })
 
 test('getTree.flatten', async t => {

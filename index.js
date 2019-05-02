@@ -201,7 +201,9 @@ const getTreeFromNSolid = packages => {
       }
     }
   }
-  walk(tree, packages[0])
+  if (packages.length) {
+    walk(tree, packages[0])
+  }
 
   return tree
 }
