@@ -69,6 +69,24 @@ test('getTree.fromYarnLock', async t => {
       t.ok(tree.children.length > 0, 'found dependencies')
       t.ok(treeNoDev.children.length < tree.children.length, 'less dependencies')
     })
+
+    await t.test('out of sync with package.json', async t => {
+      const pkg = require('../package')
+      const err = new Error('yarn.lock and package.json out of sync')
+      err.code = 'YARN_LOCK_OUT_OF_SYNC'
+      t.throws(() => {
+        getTree.fromYarnLock({
+          yarnLock: fs.readFileSync(`${__dirname}/yarn.lock`, 'utf8'),
+          packageJSON: {
+            ...pkg,
+            dependencies: {
+              ...pkg.dependencies,
+              bloop: '1.0.0'
+            }
+          }
+        })
+      }, err)
+    })
   })
   await t.test('react', async t => {
     const tree = getTree.fromYarnLock({

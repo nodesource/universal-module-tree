@@ -114,6 +114,11 @@ const getTreeFromYarnLock = ({ yarnLock: yarnLockString, packageJSON, noDev }) =
 
   for (const [name, semver] of getAllDependencies(packageJSON, { noDev })) {
     if (/^link:/.test(semver)) continue
+    if (!yarnLock.object[`${name}@${semver}`]) {
+      const err = new Error('yarn.lock and package.json out of sync')
+      err.code = 'YARN_LOCK_OUT_OF_SYNC'
+      throw err
+    }
     const treeNode = new Node({
       name,
       version: yarnLock.object[`${name}@${semver}`].version,
