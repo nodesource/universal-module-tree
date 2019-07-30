@@ -4,7 +4,6 @@ const fs = require('fs')
 const { promisify } = require('util')
 const lockfile = require('@yarnpkg/lockfile')
 const readPackageTree = require('read-package-tree')
-const assert = require('assert')
 const flatten = require('./lib/flatten')
 const { join } = require('path')
 const debug = require('debug')('universal-module-tree')
@@ -167,7 +166,11 @@ const getTreeFromNodeModules = async (dir, { noDev } = {}) => {
 
   for (const [name] of await getAllDependencies(await readJSON(`${dir}/package.json`), { noDev })) {
     const dataNode = data.children.find(c => c.package.name === name)
-    assert(dataNode, 'Please run `npm install` first')
+    if (!dataNode) {
+      const err = new Error('Please run `npm install` first')
+      err.code = 'NO_NODE_MODULES'
+      throw err
+    }
     const treeNode = new Node({
       name,
       version: dataNode.package.version
