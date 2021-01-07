@@ -6,19 +6,21 @@
   "description": "Get a module tree from package-lock.json / yarn.lock / node_modules",
   "scripts": {
     "test": "standard && npm run test:deps && nyc --lines 100 -- tap test/*.js",
-    "test:deps": "dependency-check . --quiet && dependency-check . --quiet --unused --no-dev"
+    "test:deps": "dependency-check . --quiet && dependency-check . --quiet --unused --no-dev",
+    "standard": "standard --verbose",
+    "standard-fix": "standard --fix"
   },
   "devDependencies": {
-    "dependency-check": "^3.2.1",
+    "dependency-check": "^4.1.0",
     "json-stringify-safe": "^5.0.1",
-    "minimist": "^1.2.0",
-    "nyc": "^14.1.1",
-    "standard": "^12.0.1",
-    "tap": "^14.2.3"
+    "minimist": "^1.2.5",
+    "nyc": "^15.1.0",
+    "standard": "^16.0.3",
+    "tap": "^14.11.0"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
-    "debug": "^4.1.1",
-    "read-package-tree": "^5.2.1"
+    "debug": "^4.3.1",
+    "read-package-tree": "^5.3.1"
   }
 }
