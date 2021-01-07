@@ -18,16 +18,16 @@ class Node {
 const getTree = async (dir, opts = {}) =>
   await exists(`${dir}/package-lock.json`)
     ? getTreeFromPackageLock({
-      packageLock: await readJSON(`${dir}/package-lock.json`),
-      packageJSON: await readJSON(`${dir}/package.json`),
-      ...opts
-    })
-    : await exists(`${dir}/yarn.lock`)
-      ? getTreeFromYarnLock({
-        yarnLock: await promisify(fs.readFile)(`${dir}/yarn.lock`, 'utf8'),
+        packageLock: await readJSON(`${dir}/package-lock.json`),
         packageJSON: await readJSON(`${dir}/package.json`),
         ...opts
       })
+    : await exists(`${dir}/yarn.lock`)
+      ? getTreeFromYarnLock({
+          yarnLock: await promisify(fs.readFile)(`${dir}/yarn.lock`, 'utf8'),
+          packageJSON: await readJSON(`${dir}/package.json`),
+          ...opts
+        })
       : getTreeFromNodeModules(dir, opts)
 
 const getTreeFromPackageLock = ({ packageLock, packageJSON, noDev }) => {
